@@ -1,3 +1,36 @@
 = add-deb-repo
 
-Add debian repository to sources.list.d
+Add a new file with debian repository description to `/etc/apt/sources.list.d` directory.
+
+Step syntax:
+
+....
+- name: <name>
+  uses: myci-actions/add-deb-repo@<version>
+  with:
+    repo: <repo>>
+    repo-name: <repo-name>
+    keys: <keys>
+    key-server: <key-server>
+....
+
+Arguments:
+
+- `<name>` - Action step name.
+- `<version>` - Action version.
+- `<repo>` - Debian repository entry as it appears in `sources.list` file
+- `<repo-name>` - Name of the repository. This will be the filename in the `/etc/apt/sources.list.d` directory.
+- `<keys>` - Repository keys to import. Optional. Empty by default.
+- `<key-server>` - Key server to import keys from. Optional. Default value: `keyserver.ubuntu.com`.
+
+
+Step example:
+....
+- name: add custom deb repository
+  uses: myci-actions/add-deb-repo@1.1
+  with:
+    repo: deb http://dl.bintray.com/igagis/debian buster main
+    repo-name: igagis
+    keys: 379CE192D401AB61
+    key-server: keyserver.ubuntu.com
+....
