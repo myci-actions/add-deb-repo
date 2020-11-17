@@ -15,10 +15,11 @@ inputs:
     description: 'key server to import repository keys from'
     required: false
     default: 'keyserver.ubuntu.com'
+defaults:
+  run:
+    shell: bash
 runs:
   using: "composite"
-  defaults:
-    shell: bash
   steps:
     - name: add debian repo
       run: echo '${{ inputs.repo }}' > /etc/apt/sources.list.d/{{ inputs.repo-name }}.list
