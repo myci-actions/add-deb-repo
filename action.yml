@@ -22,7 +22,7 @@ runs:
       run: apt update
       shell: bash
     - name: add debian repo
-      run: echo '${{ inputs.repo }}' > /etc/apt/sources.list.d/{{ inputs.repo-name }}.list
+      run: echo '${{ inputs.repo }}' > /etc/apt/sources.list.d/${{ inputs.repo-name }}.list
       shell: bash
     - name: import repository keys
       run: |
