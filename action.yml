@@ -18,6 +18,9 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: apt update
+      run: apt update
+      shell: bash
     - name: add debian repo
       run: echo '${{ inputs.repo }}' > /etc/apt/sources.list.d/{{ inputs.repo-name }}.list
       shell: bash
