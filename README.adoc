@@ -1,2 +1,3 @@
-# add-deb-repo
+= add-deb-repo
+
 Add debian repository to sources.list.d
