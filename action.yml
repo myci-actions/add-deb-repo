@@ -22,5 +22,5 @@ runs:
       run: echo '${{ inputs.repo }}' > /etc/apt/sources.list.d/{{ inputs.repo-name }}.list
       shell: bash
     - name: import repository keys
-      run: if [ ! -z "${{ inputs.keys }}" ]; then apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}; fi
+      run: if [ ! -z "${{ inputs.keys }}" ]; then apt install --assume-yes dirmngr && apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}; fi
       shell: bash
