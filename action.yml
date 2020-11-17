@@ -15,14 +15,12 @@ inputs:
     description: 'key server to import repository keys from'
     required: false
     default: 'keyserver.ubuntu.com'
-defaults:
-  run:
-    shell: bash
 runs:
   using: "composite"
   steps:
     - name: add debian repo
       run: echo '${{ inputs.repo }}' > /etc/apt/sources.list.d/{{ inputs.repo-name }}.list
+      shell: bash
     - name: import repository keys
-      if: ${{ inputs.keys }}
-      run: apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}
+      run: if [ ! -z "${{ inputs.keys }}" ]; then apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}; fi
+      shell: bash
