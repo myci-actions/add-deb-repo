@@ -10,12 +10,11 @@ inputs:
   keys:
     description: 'repository keys to import using apt-key'
     required: false
-    default: ''
+    default:
   key-server:
     description: 'key server to import repository keys from'
     required: false
     default: 'keyserver.ubuntu.com'
-outputs:
 runs:
   using: "composite"
   shell: bash
