@@ -1,5 +1,8 @@
 name: 'Add debian repository'
 description: 'Add debian repository to /etc/apt/sources.list.d'
+branding:
+  icon: 'archive'  
+  color: 'purple'
 inputs:
   repo:
     description: 'repository line as it appears in the sources.list'
