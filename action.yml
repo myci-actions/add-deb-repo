@@ -34,3 +34,6 @@ runs:
             apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}
         fi
       shell: bash
+    - name: apt update
+      run: apt update
+      shell: bash
