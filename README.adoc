@@ -8,7 +8,7 @@ Step syntax:
 - name: <name>
   uses: myci-actions/add-deb-repo@<version>
   with:
-    repo: <repo>>
+    repo: <repo>
     repo-name: <repo-name>
     keys: <keys>
     key-server: <key-server>
