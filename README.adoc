@@ -12,6 +12,7 @@ Step syntax:
     repo-name: <repo-name>
     keys: <keys>
     key-server: <key-server>
+    update: <perform-update>
 ....
 
 Arguments:
@@ -22,6 +23,7 @@ Arguments:
 - `<repo-name>` - Name of the repository. This will be the filename in the `/etc/apt/sources.list.d` directory.
 - `<keys>` - Repository keys to import. Optional. Empty by default.
 - `<key-server>` - Key server to import keys from. Optional. Default value: `keyserver.ubuntu.com`.
+- `<perform-update>` - Perform final `apt update`. Optional. Default value: `true`.
 
 
 Step example:

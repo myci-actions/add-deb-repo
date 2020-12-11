@@ -41,7 +41,7 @@ runs:
     - name: apt update
       run: |
         if [ "${{ inputs.keys }}" == "true" ]; then
-            apt update || true
+            apt update
         else
             echo "update is not requested"
         fi
