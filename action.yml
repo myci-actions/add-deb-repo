@@ -18,22 +18,31 @@ inputs:
     description: 'key server to import repository keys from'
     required: false
     default: 'keyserver.ubuntu.com'
+  update:
+    description: "perform 'apt update' after adding the repo"
+    required: false
+    default: true
 runs:
   using: "composite"
   steps:
-    - name: apt update
-      run: apt update
+    - name: import repository keys
+      run: |
+        if [ ! -z "${{ inputs.keys }}" ]; then
+            apt update || true
+            apt install --assume-yes dirmngr
+            apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}
+        else
+            echo "no keys specified, nothing to import"
+        fi
       shell: bash
     - name: add debian repo
       run: echo "${{ inputs.repo }}" > /etc/apt/sources.list.d/${{ inputs.repo-name }}.list
       shell: bash
-    - name: import repository keys
-      run: |
-        if [ ! -z "${{ inputs.keys }}" ]; then
-            apt install --assume-yes dirmngr
-            apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}
-        fi
-      shell: bash
     - name: apt update
-      run: apt update
+      run: |
+        if [ "${{ inputs.keys }}" == "true" ]; then
+            apt update || true
+        else
+            echo "update is not requested"
+        fi
       shell: bash
