@@ -40,7 +40,7 @@ runs:
       shell: bash
     - name: apt update
       run: |
-        if [ "${{ inputs.keys }}" == "true" ]; then
+        if [ "${{ inputs.update }}" == "true" ]; then
             apt update
         else
             echo "update is not requested"
