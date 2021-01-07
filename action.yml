@@ -28,7 +28,7 @@ runs:
     - name: import repository keys
       run: |
         if [ ! -z "${{ inputs.keys }}" ]; then
-            if [ "$(id --user)" -eq "0" ]
+            if [ "$(id --user)" -eq "0" ]; then
               sudocmd=""
             else
               sudocmd="sudo"
@@ -43,7 +43,7 @@ runs:
       shell: bash
     - name: add debian repo
       run: |
-        if [ "$(id --user)" -eq "0" ]
+        if [ "$(id --user)" -eq "0" ]; then
           sudocmd=""
         else
           sudocmd="sudo"
@@ -54,7 +54,7 @@ runs:
     - name: apt update
       run: |
         if [ "${{ inputs.update }}" == "true" ]; then
-            if [ "$(id --user)" -eq "0" ]
+            if [ "$(id --user)" -eq "0" ]; then
               sudocmd=""
             else
               sudocmd="sudo"
