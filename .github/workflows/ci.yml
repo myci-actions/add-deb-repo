@@ -14,7 +14,7 @@ jobs:
     name: linux container - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
     steps:
       - name: add cppfw deb repo
-        uses: ${{ github.repository }}@${{ github.sha }}
+        uses: myci-actions/add-deb-repo@$master
         with:
           repo: deb http://dl.bintray.com/cppfw/${{ matrix.os }} ${{ matrix.codename }} main
           repo-name: cppfw
