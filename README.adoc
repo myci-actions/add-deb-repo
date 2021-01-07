@@ -29,7 +29,7 @@ Arguments:
 Step example:
 ....
 - name: add custom deb repository
-  uses: myci-actions/add-deb-repo@2
+  uses: myci-actions/add-deb-repo@4
   with:
     repo: deb http://dl.bintray.com/igagis/debian buster main
     repo-name: igagis
