@@ -1,0 +1,24 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  linux_container:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: debian, codename: buster, image_owner: , package_type: deb}
+          - {os: ubuntu, codename: bionic, image_owner: , package_type: deb}
+          - {os: ubuntu, codename: focal, image_owner: , package_type: deb}
+    runs-on: ubuntu-latest
+    container: ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
+    name: linux container - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
+    steps:
+      - name: add cppfw deb repo
+        uses: myci-actions/add-deb-repo@${{ github.sha }}
+        with:
+          repo: deb http://dl.bintray.com/cppfw/${{ matrix.os }} ${{ matrix.codename }} main
+          repo-name: cppfw
+          keys: 379CE192D401AB61
+      - name: apt update
+        run: apt update
+        
