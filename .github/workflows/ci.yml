@@ -31,5 +31,5 @@ jobs:
           repo-name: cppfw
           keys: 379CE192D401AB61
       - name: apt update
-        run: apt update
+        run: sudo apt update
         
