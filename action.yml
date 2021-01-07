@@ -28,20 +28,39 @@ runs:
     - name: import repository keys
       run: |
         if [ ! -z "${{ inputs.keys }}" ]; then
-            apt update || true
-            apt install --assume-yes dirmngr
-            apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}
+            if [ "$(id --user)" -eq "0" ]
+              sudocmd=""
+            else
+              sudocmd="sudo"
+            fi
+        
+            $sudocmd apt update || true
+            $sudocmd apt install --assume-yes dirmngr
+            $sudocmd apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}
         else
             echo "no keys specified, nothing to import"
         fi
       shell: bash
     - name: add debian repo
-      run: echo "${{ inputs.repo }}" > /etc/apt/sources.list.d/${{ inputs.repo-name }}.list
+      run: |
+        if [ "$(id --user)" -eq "0" ]
+          sudocmd=""
+        else
+          sudocmd="sudo"
+        fi
+        
+        $sudocmd echo "${{ inputs.repo }}" > /etc/apt/sources.list.d/${{ inputs.repo-name }}.list
       shell: bash
     - name: apt update
       run: |
         if [ "${{ inputs.update }}" == "true" ]; then
-            apt update
+            if [ "$(id --user)" -eq "0" ]
+              sudocmd=""
+            else
+              sudocmd="sudo"
+            fi
+            
+            $sudocmd apt update
         else
             echo "update is not requested"
         fi
