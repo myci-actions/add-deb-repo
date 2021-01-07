@@ -49,7 +49,7 @@ runs:
           sudocmd="sudo"
         fi
         
-        $sudocmd echo "${{ inputs.repo }}" > /etc/apt/sources.list.d/${{ inputs.repo-name }}.list
+        $sudocmd 'echo "${{ inputs.repo }}" > /etc/apt/sources.list.d/${{ inputs.repo-name }}.list'
       shell: bash
     - name: apt update
       run: |
