@@ -35,8 +35,9 @@ runs:
             fi
         
             $sudocmd apt update || true
-            $sudocmd apt install --assume-yes dirmngr
+            $sudocmd apt install --assume-yes dirmngr curl
             $sudocmd apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}
+            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | $sudocmd apt-key add - # update yarn key just in case, as it tends to expire often
         else
             echo "no keys specified, nothing to import"
         fi
