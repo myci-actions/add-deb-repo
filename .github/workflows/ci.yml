@@ -18,9 +18,10 @@ jobs:
       - name: add cppfw deb repo
         uses: ./
         with:
-          repo: deb http://dl.bintray.com/cppfw/${{ matrix.os }} ${{ matrix.codename }} main
+          repo: deb https://cppfw.jfrog.io/artifactory/${{ matrix.os }} ${{ matrix.codename }} main
           repo-name: cppfw
-          keys: 379CE192D401AB61
+          keys: 4A949240F79AD8027C6CA2F4953AE777616ADEDF
+          key-server: https://cppfw.jfrog.io/artifactory/api/gpg/key/public
       - name: apt update
         run: apt update
   linux:
@@ -31,9 +32,10 @@ jobs:
       - name: add cppfw deb repo
         uses: ./
         with:
-          repo: deb http://dl.bintray.com/cppfw/ubuntu focal main
+          repo: deb https://cppfw.jfrog.io/artifactory/ubuntu focal main
           repo-name: cppfw
-          keys: 379CE192D401AB61
+          keys: 4A949240F79AD8027C6CA2F4953AE777616ADEDF
+          key-server: https://cppfw.jfrog.io/artifactory/api/gpg/key/public
       - name: apt update
         run: sudo apt update
         
