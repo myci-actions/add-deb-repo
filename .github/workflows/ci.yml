@@ -13,6 +13,8 @@ jobs:
     container: ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
     name: linux container - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
     steps:
+      - name: cehckout repo
+        uses: actions/checkout@v2
       - name: add cppfw deb repo
         uses: ./
         with:
@@ -24,6 +26,8 @@ jobs:
   linux:
     runs-on: ubuntu-latest
     steps:
+      - name: cehckout repo
+        uses: actions/checkout@v2
       - name: add cppfw deb repo
         uses: ./
         with:
