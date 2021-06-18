@@ -15,7 +15,7 @@ inputs:
     required: false
     default:
   key-server:
-    description: 'key server to import repository keys from'
+    description: 'key server to import repository keys from, or direct URL to key if "keys" is not specified'
     required: false
     default: 'keyserver.ubuntu.com'
   update:
@@ -27,16 +27,23 @@ runs:
   steps:
     - name: import repository keys
       run: |
-        if [ ! -z "${{ inputs.keys }}" ]; then
+        if [ ! -z "${{ inputs.key-server }}" ]; then
             if [ "$(id --user)" -eq "0" ]; then
-              sudocmd=""
+                sudocmd=""
             else
-              sudocmd="sudo"
+                sudocmd="sudo"
             fi
-        
+
             $sudocmd apt update || true
             $sudocmd apt install --assume-yes dirmngr curl
-            $sudocmd apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}
+
+            if [ ! -z "${{ inputs.keys }}" ]; then
+                $sudocmd apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}
+            else
+                # try downloding key as if key-server is a direct URL to the key
+                curl -sS ${{ inputs.key-server }} | $sudocmd apt-key add
+            fi
+
             curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | $sudocmd apt-key add - # update yarn key just in case, as it tends to expire often
         else
             echo "no keys specified, nothing to import"
