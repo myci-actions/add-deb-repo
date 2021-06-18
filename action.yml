@@ -35,7 +35,7 @@ runs:
             fi
 
             $sudocmd apt update || true
-            $sudocmd apt install --assume-yes dirmngr curl
+            $sudocmd apt install --assume-yes dirmngr curl apt-transport-https
 
             if [ ! -z "${{ inputs.keys }}" ]; then
                 $sudocmd apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}
