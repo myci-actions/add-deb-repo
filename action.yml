@@ -17,7 +17,7 @@ inputs:
   key-server:
     description: 'key server to import repository keys from, or direct URL to key if "keys" is not specified'
     required: false
-    default: 'keyserver.ubuntu.com'
+    default:
   update:
     description: "perform 'apt update' after adding the repo"
     required: false
