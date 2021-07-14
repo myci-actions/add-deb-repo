@@ -34,8 +34,8 @@ runs:
                 sudocmd="sudo"
             fi
 
-            $sudocmd apt update || true
-            $sudocmd apt install --assume-yes dirmngr curl apt-transport-https
+            $sudocmd apt --quiet update || true
+            $sudocmd apt --quiet install --assume-yes dirmngr curl apt-transport-https
 
             if [ ! -z "${{ inputs.keys }}" ]; then
                 echo "download key from keyserver"
@@ -43,11 +43,11 @@ runs:
             else
                 # try downloding key as if key-server is a direct URL to the key
                 echo "download key from direct URL provided as key-server"
-                curl -sS ${{ inputs.key-server }} | $sudocmd apt-key add
+                curl --silent --show-error ${{ inputs.key-server }} | $sudocmd apt-key add
             fi
 
             echo "update yarn key"
-            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | $sudocmd apt-key add - # update yarn key just in case, as it tends to expire often
+            curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | $sudocmd apt-key add - # update yarn key just in case, as it tends to expire often
         else
             echo "no keys specified, nothing to import"
         fi
@@ -71,7 +71,7 @@ runs:
               sudocmd="sudo"
             fi
             
-            $sudocmd apt update
+            $sudocmd apt --quiet update
         else
             echo "update is not requested"
         fi
