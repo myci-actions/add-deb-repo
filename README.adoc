@@ -25,7 +25,7 @@ Arguments:
 - `<keys>` - Repository keys to import. Optional. Empty by default.
 - `<key-server>` - Key server to import keys from. Optional. Empty by default. If `keys` parameter is not specified, then `key-server` represents direct URL to the key.
 - `<perform-update>` - Perform final `apt update`. Optional. Default value: `true`.
-- `<packages-to-install>` - space separated list of packages to install after adding the repo. Update will be performed first.
+- `<packages-to-install>` - space separated list of packages to install after adding the repo. Update will be performed first. Optional. Empty by default.
 
 
 Step example:
