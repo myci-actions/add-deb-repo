@@ -22,6 +22,10 @@ inputs:
     description: "perform 'apt update' after adding the repo"
     required: false
     default: true
+  install:
+    description: "space separated list of packages to install after adding the repo, update will be performed first"
+    required: false
+    default:
 runs:
   using: "composite"
   steps:
@@ -64,7 +68,7 @@ runs:
       shell: bash
     - name: apt update
       run: |
-        if [ "${{ inputs.update }}" == "true" ]; then
+        if [ "${{ inputs.update }}" == "true" ] || [ ! -z "${{ inputs.install }}" ]; then
             if [ "$(id --user)" -eq "0" ]; then
               sudocmd=""
             else
@@ -76,3 +80,16 @@ runs:
             echo "update is not requested"
         fi
       shell: bash
+    - name: apt install
+      run: |
+        if [ ! -z "${{ inputs.install }}" ]; then
+            if [ "$(id --user)" -eq "0" ]; then
+              sudocmd=""
+            else
+              sudocmd="sudo"
+            fi
+            
+            $sudocmd apt --quiet install --assume-yes ${{ inputs.install }}
+        else
+            echo "installing packages is not requested"
+        fi
