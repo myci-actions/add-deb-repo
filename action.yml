@@ -38,7 +38,7 @@ runs:
                 sudocmd="sudo"
             fi
 
-            $sudocmd apt --quiet update || true
+            $sudocmd apt --quiet update --assume-yes || true
             $sudocmd apt --quiet install --assume-yes dirmngr curl apt-transport-https
 
             if [ ! -z "${{ inputs.keys }}" ]; then
@@ -75,7 +75,7 @@ runs:
               sudocmd="sudo"
             fi
             
-            $sudocmd apt --quiet update
+            $sudocmd apt --quiet update --assume-yes
         else
             echo "update is not requested"
         fi
