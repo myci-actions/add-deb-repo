@@ -12,7 +12,7 @@ jobs:
           - {os: ubuntu, codename: focal, image_owner: , package_type: deb}
     runs-on: ubuntu-latest
     container: ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
-    name: linux container - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
+    name: linux container keys/key-server - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
     steps:
       - name: cehckout repo
         uses: actions/checkout@v2
@@ -37,7 +37,7 @@ jobs:
           - {os: ubuntu, codename: focal, image_owner: , package_type: deb}
     runs-on: ubuntu-latest
     container: ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
-    name: linux container URL - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
+    name: linux container key-server - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
     steps:
       - name: cehckout repo
         uses: actions/checkout@v2
@@ -61,7 +61,7 @@ jobs:
           - {os: ubuntu, codename: focal, image_owner: , package_type: deb}
     runs-on: ubuntu-latest
     container: ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
-    name: linux container URL - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
+    name: linux container keys-asc - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
     steps:
       - name: cehckout repo
         uses: actions/checkout@v2
