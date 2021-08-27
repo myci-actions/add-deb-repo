@@ -37,6 +37,5 @@ Step example:
   with:
     repo: deb http://dl.bintray.com/igagis/debian buster main
     repo-name: igagis
-    keys: 379CE192D401AB61
-    key-server: keyserver.ubuntu.com
+    keys-asc: http://gagis.hopto.org/repo/cppfw/pubkey.gpg
 ....
