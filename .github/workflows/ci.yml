@@ -110,6 +110,7 @@ jobs:
         uses: ./
         with:
           repo: deb http://gagis.hopto.org/repo/cppfw/ubuntu focal main
+          repo-name: cppfw
           keys-asc: http://gagis.hopto.org/repo/cppfw/pubkey.gpg
       - name: apt update
         run: sudo apt update
