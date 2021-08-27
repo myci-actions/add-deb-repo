@@ -37,7 +37,7 @@ runs:
   steps:
     - name: import repository keys
       run: |
-        if [ ! -z "${{ inputs.key-server }}" ]; then
+        if [ ! -z "${{ inputs.key-server }}" ] || [ ! -z "${{ inputs.keys-asc }}" ]; then
             if [ "$(id --user)" -eq "0" ]; then
                 sudocmd=""
             else
