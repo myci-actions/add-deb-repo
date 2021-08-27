@@ -12,6 +12,7 @@ Step syntax:
     repo-name: <repo-name>
     keys: <keys>
     key-server: <key-server>
+    keys-asc: <keys-asc-url>
     update: <perform-update>
     install: <packages-to-install>
 ....
@@ -22,8 +23,9 @@ Arguments:
 - `<version>` - Action version.
 - `<repo>` - Debian repository entry as it appears in `sources.list` file
 - `<repo-name>` - Name of the repository. This will be the filename in the `/etc/apt/sources.list.d` directory.
-- `<keys>` - Repository keys to import. Optional. Empty by default.
-- `<key-server>` - Key server to import keys from. Optional. Empty by default. If `keys` parameter is not specified, then `key-server` represents direct URL to the key.
+- `<keys>` - Repository keys to import. Optional. Empty by default. **Deprecated**.
+- `<key-server>` - Key server to import keys from. Optional. Empty by default. If `keys` parameter is not specified, then `key-server` represents direct URL to the key. **Deprecated**.
+- `<keys-asc-url>` - URL to ascii armored keys keyring. The file is downloaded and is placed to `/etc/apt/trusted.gpg.d/<repo-name>.asc`.
 - `<perform-update>` - Perform final `apt update`. Optional. Default value: `true`.
 - `<packages-to-install>` - space separated list of packages to install after adding the repo. Update will be performed first. Optional. Empty by default.
 
@@ -31,7 +33,7 @@ Arguments:
 Step example:
 ....
 - name: add custom deb repository
-  uses: myci-actions/add-deb-repo@9
+  uses: myci-actions/add-deb-repo@10
   with:
     repo: deb http://dl.bintray.com/igagis/debian buster main
     repo-name: igagis
