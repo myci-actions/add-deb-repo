@@ -74,7 +74,7 @@ runs:
           sudocmd="sudo"
         fi
         
-        echo "${{ inputs.repo }}" | $sudocmd tee /etc/apt/sources.list.d/${{ inputs.repo-name }}.list
+        echo "${{ inputs.repo }}" | $sudocmd dd of=/etc/apt/sources.list.d/${{ inputs.repo-name }}.list
       shell: bash
     - name: apt update
       run: |
