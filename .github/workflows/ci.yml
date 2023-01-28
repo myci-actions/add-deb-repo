@@ -1,55 +1,6 @@
 name: ci
 on: [push, pull_request]
 jobs:
-  linux_container:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          # - {os: debian, codename: stretch, image_owner: , package_type: deb}
-          - {os: debian, codename: buster, image_owner: , package_type: deb}
-          - {os: ubuntu, codename: bionic, image_owner: , package_type: deb}
-          - {os: ubuntu, codename: focal, image_owner: , package_type: deb}
-    runs-on: ubuntu-latest
-    container: ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
-    name: linux container keys/key-server - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
-    steps:
-      - name: cehckout repo
-        uses: actions/checkout@v2
-      - name: add cppfw deb repo
-        uses: ./
-        with:
-          repo: deb https://cppfw.jfrog.io/artifactory/${{ matrix.os }} ${{ matrix.codename }} main
-          repo-name: cppfw
-          keys: 4A949240F79AD8027C6CA2F4953AE777616ADEDF
-          key-server: https://cppfw.jfrog.io/artifactory/api/gpg/key/public
-      - name: apt update
-        run: apt update
-  # key is downloaded from direct URL
-  linux_container_keyserver:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - {os: debian, codename: stretch, image_owner: , package_type: deb}
-          - {os: debian, codename: buster, image_owner: , package_type: deb}
-          - {os: ubuntu, codename: bionic, image_owner: , package_type: deb}
-          - {os: ubuntu, codename: focal, image_owner: , package_type: deb}
-    runs-on: ubuntu-latest
-    container: ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
-    name: linux container key-server - ${{ matrix.image_owner }}${{ matrix.os }}:${{ matrix.codename }}
-    steps:
-      - name: cehckout repo
-        uses: actions/checkout@v2
-      - name: add cppfw deb repo
-        uses: ./
-        with:
-          repo: deb https://cppfw.jfrog.io/artifactory/${{ matrix.os }} ${{ matrix.codename }} main
-          repo-name: cppfw
-          key-server: https://cppfw.jfrog.io/artifactory/api/gpg/key/public
-      - name: apt update
-        run: apt update
-  # key is downloaded from direct URL and dropped to /etc/apt/trusted.gpg.d
   linux_container_keys_asc:
     strategy:
       fail-fast: false
@@ -72,35 +23,6 @@ jobs:
           keys-asc: http://gagis.hopto.org/repo/cppfw/pubkey.gpg
       - name: apt update
         run: apt update
-  linux:
-    runs-on: ubuntu-latest
-    steps:
-      - name: cehckout repo
-        uses: actions/checkout@v2
-      - name: add cppfw deb repo
-        uses: ./
-        with:
-          repo: deb https://cppfw.jfrog.io/artifactory/ubuntu focal main
-          repo-name: cppfw
-          keys: 4A949240F79AD8027C6CA2F4953AE777616ADEDF
-          key-server: https://cppfw.jfrog.io/artifactory/api/gpg/key/public
-      - name: apt update
-        run: sudo apt update
-  # key is downloaded from direct URL
-  linux_keyserver:
-    runs-on: ubuntu-latest
-    steps:
-      - name: cehckout repo
-        uses: actions/checkout@v2
-      - name: add cppfw deb repo
-        uses: ./
-        with:
-          repo: deb https://cppfw.jfrog.io/artifactory/ubuntu focal main
-          repo-name: cppfw
-          key-server: https://cppfw.jfrog.io/artifactory/api/gpg/key/public
-      - name: apt update
-        run: sudo apt update
-  # key is downloaded from direct URL and put to /etc/apt/trusted.gpg.d
   linux_keys_asc:
     runs-on: ubuntu-latest
     steps:
