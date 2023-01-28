@@ -44,14 +44,8 @@ runs:
                 sudocmd="sudo"
             fi
 
-            $sudocmd apt --quiet install --assume-yes curl
-
-            # update yarn key just in case, as it tends to expire often
-            echo "update yarn key"
-            curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | $sudocmd dd of=/etc/apt/trusted.gpg.d/yarn.asc
-
             $sudocmd apt --quiet update --assume-yes || true
-            $sudocmd apt --quiet install --assume-yes dirmngr apt-transport-https
+            $sudocmd apt --quiet install --assume-yes dirmngr curl apt-transport-https
 
             if [ ! -z "${{ inputs.keys-asc }}" ]; then
                 echo "download ascii armored keys"
@@ -64,6 +58,10 @@ runs:
                 echo "download key from direct URL provided as key-server"
                 curl --silent --show-error ${{ inputs.key-server }} | $sudocmd apt-key add
             fi
+
+            # update yarn key just in case, as it tends to expire often
+            echo "update yarn key"
+            curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | $sudocmd dd of=/etc/apt/trusted.gpg.d/yarn.asc
         else
             echo "no keys specified, nothing to import"
         fi
