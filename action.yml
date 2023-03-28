@@ -49,19 +49,19 @@ runs:
 
             if [ ! -z "${{ inputs.keys-asc }}" ]; then
                 echo "download ascii armored keys"
-                curl --silent --show-error ${{ inputs.keys-asc }} | $sudocmd dd of=/etc/apt/trusted.gpg.d/${{ inputs.repo-name }}.asc
+                curl --location --silent --show-error ${{ inputs.keys-asc }} | $sudocmd dd of=/etc/apt/trusted.gpg.d/${{ inputs.repo-name }}.asc
             elif [ ! -z "${{ inputs.keys }}" ]; then
                 echo "download key from keyserver"
                 $sudocmd apt-key adv --keyserver ${{ inputs.key-server }} --recv-keys ${{ inputs.keys }}
             else
                 # try downloding key as if key-server is a direct URL to the key
                 echo "download key from direct URL provided as key-server"
-                curl --silent --show-error ${{ inputs.key-server }} | $sudocmd apt-key add
+                curl --location --silent --show-error ${{ inputs.key-server }} | $sudocmd apt-key add
             fi
 
             # update yarn key just in case, as it tends to expire often
             echo "update yarn key"
-            curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | $sudocmd dd of=/etc/apt/trusted.gpg.d/yarn.asc
+            curl --location --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | $sudocmd dd of=/etc/apt/trusted.gpg.d/yarn.asc
         else
             echo "no keys specified, nothing to import"
         fi
