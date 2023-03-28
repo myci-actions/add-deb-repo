@@ -29,7 +29,7 @@ Arguments:
 Step example:
 ....
 - name: add custom deb repository
-  uses: myci-actions/add-deb-repo@10
+  uses: myci-actions/add-deb-repo@11
   with:
     repo: deb http://gagis.hopto.org/repo/cppfw/debian buster main
     repo-name: cppfw
