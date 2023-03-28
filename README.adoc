@@ -31,7 +31,7 @@ Step example:
 - name: add custom deb repository
   uses: myci-actions/add-deb-repo@11
   with:
-    repo: deb http://gagis.hopto.org/repo/cppfw/debian buster main
+    repo: deb https://gagis.hopto.org/repo/cppfw/debian buster main
     repo-name: cppfw
-    keys-asc: http://gagis.hopto.org/repo/cppfw/pubkey.gpg
+    keys-asc: https://gagis.hopto.org/repo/cppfw/pubkey.gpg
 ....
